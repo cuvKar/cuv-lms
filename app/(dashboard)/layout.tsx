@@ -9,10 +9,13 @@ export default function DashboardLayout({
 }) {
   return (
     
-    <div>
+    <div className='h-full'>
       <Header />
       <Sidebar />
+      <main className='pl-[16rem]'>
         {children}
+      </main>
+        
     </div>
   )
 }

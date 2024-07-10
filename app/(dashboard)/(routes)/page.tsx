@@ -10,8 +10,5 @@ export default function Home() {
           <h1 className='text-4xl font-bold'>This is protetced Page</h1>
         </section>
       </main>
-        
-
-          
   )
 }
