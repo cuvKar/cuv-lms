@@ -17,7 +17,7 @@ export default function DashboardLayout({
         <Sidebar />
       </div>
       
-      <main className='pl-[16rem]'>
+      <main className='pl-[16rem] pt-[80px]'>
         {children}
       </main>
         
