@@ -10,8 +10,13 @@ export default function DashboardLayout({
   return (
     
     <div className='h-full'>
-      <Header />
-      <Sidebar />
+      <div className='h-[80px] md:pl-56 fixed inset-y-0 w-full z-50'>
+        <Header />
+      </div>
+      <div className='hidden md:flex'>
+        <Sidebar />
+      </div>
+      
       <main className='pl-[16rem]'>
         {children}
       </main>

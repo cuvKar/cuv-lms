@@ -1,24 +1,14 @@
 import React from 'react'
-import { ModeToggle } from '@/components/mode-toggle'
-import { 
-  SignInButton,
-  SignedOut,
-  SignedIn,
-  UserButton,
- } from '@clerk/nextjs'
+import MobileSidebar from './mobile-sidebar'
+import NavbarRoutes from './navbar-routes'
 
 function Header() {
   return (
-    <header className='flex w-screen h-[80px] justify-end px-10'>
-        <div className='flex'>
-        <SignedOut>
-            <SignInButton />
-        </SignedOut>
-        <SignedIn>
-            <UserButton />
-        </SignedIn>
-        <ModeToggle />
-        </div>
+    <header className='flex w-full h-[80px] justify-between px-10'>
+      <div className='flex w-full pt-5'>
+        <MobileSidebar/>
+        <NavbarRoutes/>
+      </div>
   </header>
   )
 }
