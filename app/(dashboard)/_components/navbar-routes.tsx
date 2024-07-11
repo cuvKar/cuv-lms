@@ -20,7 +20,7 @@ function NavbarRoutes() {
     const isStudentPage = pathname?.includes('/chapter')
 
   return (
-    <div className='flex gap-x-2 ml-auto mt-5'>
+    <div className='flex gap-x-2 ml-auto'>
         {isTeacherPage || isStudentPage ? (
             <Link href="/">
                 <Button size="sm" variant="ghost">

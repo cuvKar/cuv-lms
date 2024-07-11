@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Page() {
+function CoursePage() {
   return (
     <div>
       <h1>Teacher Courses</h1>
@@ -8,4 +8,4 @@ function Page() {
   )
 }
 
-export default Page
+export default CoursePage
