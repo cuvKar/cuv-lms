@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider"
 import { ClerkProvider } from '@clerk/nextjs'
+import ToasterProvider from '@/components/providers/toaster-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +26,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ClerkProvider>{children}</ClerkProvider>
+            
+            <ClerkProvider>
+              <ToasterProvider />
+              {children}
+            </ClerkProvider>
           </ThemeProvider>
         </body>
       </html>
