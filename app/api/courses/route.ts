@@ -2,14 +2,13 @@ import { auth } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
 import { db } from "@/lib/db"
-import {toast} from "react-hot-toast"
 
 export async function POST(
     req: Request
 ){
     try{
         const {userId} = auth()
-        const title = await req.json()
+        const { title } = await req.json()
 
         if (!userId){
             return new NextResponse("Unauthorized", {status: 401})
@@ -23,8 +22,6 @@ export async function POST(
         })
 
         return NextResponse.json(course)
-        toast.success('Course created successfully')
-
     } catch (error){
         console.error("[COURSES]", error)
         return new NextResponse("Internal Server Error", {status: 500})
