@@ -21,6 +21,7 @@ import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Textarea } from '@/components/ui/textarea';
 import { Course } from '@prisma/client';
+import { ComboBox } from '@/components/ui/combobox';
 
 interface CategoryFormProps {
     initialData: Course
@@ -53,7 +54,7 @@ const router = useRouter();
 
 const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try{
-        await axios.patch(`/api/cat/${courseId}`, values);
+        await axios.patch(`/api/courses/${courseId}`, values);
         toast.success('Course Category updated')
         toggleEdit()
         router.refresh()
@@ -61,17 +62,19 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
         toast. error('Somthing went wrong')
     }
 }
+
+const selectedOption = options.find((option) => option.value === initialData.categoryId);
   return (
     <div className='mt-6 border rounded-md p-4'>
         <div className='font-medium flex items-center justify-between'>
-            <p>Course Description </p>
+            <p>Course Category </p>
             <Button onClick={toggleEdit} variant = 'ghost'>
                 {isEditing ? (
                     <>Cancel</>
                 ):(
                     <>
                         <Pencil className='h-4 w-4 mr-2' />
-                        Edit Description
+                        Edit Category
                     </>
                 )}
             </Button>
@@ -79,9 +82,9 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
         {!isEditing && (
             <p className={cn(
                 "text-sm mt-2",
-                !initialData.description && 'text-slate-400 italic'
+                !initialData.categoryId && 'text-slate-400 italic'
             )}>
-                {initialData.description || 'No description'}
+                {selectedOption?.label || 'No Category'}
             </p>
         )}
         {isEditing && (
@@ -96,10 +99,9 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Textarea 
-                                        disabled={isSubmitting}
-                                        placeholder='Course Description Here'
+                                    <ComboBox
                                         {...field}
+                                        options={options}
                                     />
                                 </FormControl>
                                 <FormMessage/>
