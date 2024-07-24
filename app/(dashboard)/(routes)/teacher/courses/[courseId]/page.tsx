@@ -65,33 +65,38 @@ const CourseIdPage = async ({
                 </div>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-16'>
-                <div className='flex items-center gap-x-2'>
-                    <IconBadge icon = {LayoutDashboard} />
-                    <h2 className='text-xl'>
-                        Customize your course
-                    </h2>
-                </div>
-                <TitleForm 
-                initialData={course}
-                courseId={course.id}
-                />
-                <DescriptionForm
-                initialData={course}
-                courseId={course.id}
-                />
-                <ImageForm
-                initialData={course}
-                courseId={course.id}
-                />
+                <div>
+                    <div className='flex items-center gap-x-2'>
+                        <IconBadge icon = {LayoutDashboard} />
+                        <h2 className='text-xl'>
+                            Customize your course
+                        </h2>
+                    </div>
+                    <TitleForm 
+                    initialData={course}
+                    courseId={course.id}
+                    />
+                    <DescriptionForm
+                    initialData={course}
+                    courseId={course.id}
+                    />
+                    <ImageForm
+                    initialData={course}
+                    courseId={course.id}
+                    />
 
-                <CategoryForm
-                initialData={course}
-                courseId={course.id}
-                options={categories.map((category) => ({
-                    label: category.name,
-                    value: category.id
-                }))}
-                />
+                    <CategoryForm
+                    initialData={course}
+                    courseId={course.id}
+                    options={categories.map((category) => ({
+                        label: category.name,
+                        value: category.id
+                    }))}
+                    />
+                </div>
+                <div>
+                    
+                </div>
             </div>
         </div>
     )
