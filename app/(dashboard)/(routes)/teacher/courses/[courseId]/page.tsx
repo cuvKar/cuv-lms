@@ -105,9 +105,8 @@ const CourseIdPage = async ({
                     <div>
                         TODO: Chapters 
                     </div>
-                </div>
-                <div>
-                    <div className='flex items-center gap-x-2'>
+                    
+                    <div className='flex items-center gap-x-2 mt-5'>
                         <IconBadge icon = {CircleDollarSign} />
                         <h2 className='text-xl'>
                             Sell your course
@@ -118,7 +117,6 @@ const CourseIdPage = async ({
                         courseId={course.id}
                     />
                 </div>
-                
             </div>
         </div>
     )

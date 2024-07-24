@@ -18,8 +18,8 @@ import { Pencil } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Textarea } from '@/components/ui/textarea';
 import { Course } from '@prisma/client';
+import { formatPrice } from '@/lib/format';
 
 interface PriceFormProps {
     initialData: Course
@@ -27,9 +27,7 @@ interface PriceFormProps {
 }
 
 const formSchema = z.object({
-    price: z.string().min(1, {
-        message: 'Price is required'
-    })
+    price: z.coerce.number()
 })
 
 export const PriceForm = ({
@@ -40,7 +38,7 @@ export const PriceForm = ({
     const  form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            price: initialData.price || ''
+            price: initialData.price || undefined
         
         }
 })
@@ -80,7 +78,9 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
                 "text-sm mt-2",
                 !initialData.price && 'text-slate-400 italic'
             )}>
-                {initialData.price || 'No price'}
+                {initialData.price 
+                    ? formatPrice(initialData.price)
+                    : 'No price set'}
             </p>
         )}
         {isEditing && (
@@ -95,9 +95,11 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>
-                                    <Textarea 
+                                    <Input
+                                        type='number'
+                                        step={0.01}
                                         disabled={isSubmitting}
-                                        placeholder='Course Description Here'
+                                        placeholder='Set a price for your course'
                                         {...field}
                                     />
                                 </FormControl>
