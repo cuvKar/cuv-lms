@@ -20,6 +20,7 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Chapter, Course } from '@prisma/client';
+import { ChaptersList } from './chapters-list';
 
 interface ChaptersFormProps {
     initialData: Course & {chapters: Chapter[]};
@@ -61,10 +62,26 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
         toast. error('Somthing went wrong')
     }
 }
+
+const onReorder = async (updateDate: {id:string; position: number}[]) => {
+    try{
+        setIsUpdating(true);
+        await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+            list: updateDate
+        });
+        toast.success('Chapters reordered');
+        router.refresh();
+    } catch {
+        toast.error('Something went wrong');
+    } finally {
+        setIsUpdating(false);
+    }
+    
+}
   return (
     <div className='mt-6 border rounded-md p-4'>
         <div className='font-medium flex items-center justify-between'>
-            <p>Course Description </p>
+            <p>Course Chapters </p>
             <Button onClick={toggleCreating} variant = 'ghost'>
                 {isCreating ? (
                     <>Cancel</>
@@ -113,6 +130,11 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
                 !initialData.chapters.length && 'text-gray-500 italic'
             )}>
                 {!initialData.chapters.length && "No chapters"}
+                <ChaptersList 
+                    onEdit = {() => {}}
+                    onReorder = {onReorder}
+                    items = {initialData.chapters || []}
+                />
             </div>
         )}
         {!isCreating && (
