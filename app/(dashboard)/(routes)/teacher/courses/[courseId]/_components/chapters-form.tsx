@@ -63,11 +63,12 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
     }
 }
 
-const onReorder = async (updateDate: {id:string; position: number}[]) => {
+const Reorder = async (updateData: {id:string; position: number }[]) => {
     try{
         setIsUpdating(true);
+
         await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
-            list: updateDate
+            list: updateData
         });
         toast.success('Chapters reordered');
         router.refresh();
@@ -132,7 +133,7 @@ const onReorder = async (updateDate: {id:string; position: number}[]) => {
                 {!initialData.chapters.length && "No chapters"}
                 <ChaptersList 
                     onEdit = {() => {}}
-                    onReorder = {onReorder}
+                    onReorder={Reorder}
                     items = {initialData.chapters || []}
                 />
             </div>
