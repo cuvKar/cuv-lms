@@ -63,22 +63,25 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
     }
 }
 
-const Reorder = async (updateData: {id:string; position: number }[]) => {
-    try{
-        setIsUpdating(true);
+const onReorder = async (updateData: { id: string; position: number }[]) => {
+    try {
+      setIsUpdating(true);
 
-        await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
-            list: updateData
-        });
-        toast.success('Chapters reordered');
-        router.refresh();
+      await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+        list: updateData
+      });
+      toast.success("Chapters reordered");
+      router.refresh();
     } catch {
-        toast.error('Something went wrong');
+      toast.error("Something went wrong");
     } finally {
-        setIsUpdating(false);
+      setIsUpdating(false);
     }
-    
 }
+
+const onEdit = (id: string) => {
+    router.push(`/teacher/courses/${courseId}/chapters/${id}`)
+};
   return (
     <div className='mt-6 border rounded-md p-4'>
         <div className='font-medium flex items-center justify-between'>
@@ -132,8 +135,8 @@ const Reorder = async (updateData: {id:string; position: number }[]) => {
             )}>
                 {!initialData.chapters.length && "No chapters"}
                 <ChaptersList 
-                    onEdit = {() => {}}
-                    onReorder={Reorder}
+                    onEdit = {onEdit}
+                    onReorder={onReorder}
                     items = {initialData.chapters || []}
                 />
             </div>
