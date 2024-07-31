@@ -23,6 +23,24 @@ export const ChapterActions = ({
 }: ChapterActionsProps) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+
+    const onClick = async () => {
+        try{
+            setIsLoading(true);
+
+            await axios.patch(`/api/chapters/${chapterId}/chapters/${chapterId}`, {
+                isPublished: !isPublished
+            });
+            toast.success(`Chapter ${isPublished ? "unpublished" : "published"} successfully.`);
+            router.refresh();
+            
+        } catch (error) {
+            toast.error("An error occurred. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     const onDelete = async () => {
         try{
             setIsLoading(true);
