@@ -19,38 +19,44 @@ export const ChapterActions = ({
     disabled,
     courseId,
     chapterId,
-    isPublished
+    isPublished,
 }: ChapterActionsProps) => {
+
     const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(false);
 
     const onClick = async () => {
-        try{
+            
+        try {
             setIsLoading(true);
 
-            await axios.patch(`/api/chapters/${chapterId}/chapters/${chapterId}`, {
-                isPublished: !isPublished
-            });
-            toast.success(`Chapter ${isPublished ? "unpublished" : "published"} successfully.`);
+            if (isPublished) {
+                await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
+                toast.success("Chapter unpublished");
+            } else {
+                await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
+                toast.success("Chapter published");
+            }
             router.refresh();
-            
-        } catch (error) {
-            toast.error("An error occurred. Please try again.");
+            return;
+
+        } catch {
+            toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }
+
     }
-
     const onDelete = async () => {
-        try{
+        try {
             setIsLoading(true);
-
-            await axios.delete(`/api/chapters/${chapterId}/chapters/${chapterId}`);
-            toast.success("Chapter deleted successfully.");
+            await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
+            toast.success("Chapter deleted");
             router.refresh();
-            router.push(`/teacher/courses/${courseId}`);
+            router.push(`/teacher/courses/${courseId}/chapters/${chapterId}`)
+
         } catch {
-            toast.error("An error occurred. Please try again.");
+            toast.error("Something went wrong");
         } finally {
             setIsLoading(false);
         }
@@ -58,19 +64,19 @@ export const ChapterActions = ({
 
     return (
         <div className="flex items-center gap-x-2">
-            <Button 
-                onClick={() => {}}
-                disabled={disabled || isLoading}
+            <Button
+                onClick={onClick}
+                disabled={isLoading}
                 variant="outline"
                 size="sm"
             >
                 {isPublished ? "Unpublish" : "Publish"}
             </Button>
             <ConfirmModal onConfirm={onDelete}>
-                <Button size="sm" disabled={isLoading}>
+                <Button disabled={isLoading}>
                     <Trash className="h-4 w-4" />
                 </Button>
             </ConfirmModal>
         </div>
-    );
+    )
 }
