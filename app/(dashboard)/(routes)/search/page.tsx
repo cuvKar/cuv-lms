@@ -1,9 +1,20 @@
 import React from 'react'
+import { db } from '@/lib/db'
+import { Categories } from './_components/categories'
 
-function Page() {
+const SearchPage = async () => {
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: 'asc'
+    }
+  })
   return (
-    <div>This is search page</div>
+    <div className='p-6'>
+      <Categories 
+        items={categories}
+      />
+    </div>
   )
 }
 
-export default Page
+export default SearchPage
