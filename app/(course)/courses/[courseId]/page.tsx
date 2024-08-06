@@ -1,7 +1,7 @@
 const CourseIdPage = () => {
     return(
-        <div>
-            Watch the course
+        <div className="pt-40">
+           Watch the course
         </div>
     )
 };

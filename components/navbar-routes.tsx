@@ -18,7 +18,7 @@ function NavbarRoutes() {
     const router = useRouter()
 
     const isTeacherPage = pathname?.startsWith('/teacher')
-    const isStudentPage = pathname?.includes('/chapter')
+    const isStudentPage = pathname?.includes('/courses')
     const isSearchPage = pathname === '/search'
 
   return (
