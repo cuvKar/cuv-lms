@@ -4,6 +4,9 @@ import { auth } from "@clerk/nextjs/server"
 import { Video } from "lucide-react";
 import { redirect } from "next/navigation";
 import { VideoPlayer } from "./_components/video-player";
+import { CourseEnrollButton } from "./_components/course-enroll-button";
+import { Separator } from "@/components/ui/separator";
+import { Preview } from "@/components/preview";
 
 const ChapterIdPage = async ({
     params,
@@ -75,13 +78,37 @@ const ChapterIdPage = async ({
 
                         </div>
                     ):(
-                        // <CourseEnrollButton 
-                        //     courseId={params.courseId}
-                        //     price={course.price!}
-                        // />
+                        <CourseEnrollButton 
+                            courseId={params.courseId}
+                            price={course.price!}
+                        />
                     )}
                 </div>
+                <Separator />
+                <div>
+                    <Preview value={chapter.description!}/>
+                </div>
+                {!!attachments.length && (
+                    <>
+                        <Separator />
+                        <div className="p-4">
+                            {attachments.map((attachment) => (
+                                <a 
+                                    href={attachment.url}
+                                    target="_blank"
+                                    key={attachment.id}
+                                    className="flex items-center justify-between"
+                                    >
+                                        <p>
+                                            {attachment.name}
+                                        </p>
+                                </a>
+                            ))}
+                        </div>
+                    </>
+                )}
             </div>
+            
         </div>
     )
 }
