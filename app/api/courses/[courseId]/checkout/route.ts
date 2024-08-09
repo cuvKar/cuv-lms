@@ -10,6 +10,7 @@ export async function POST (
 ){
     try{
         const user = await currentUser();
+        console.log("COURSE_ID_CHECKOUT", user);
 
         if (!user || !user.id || !user.emailAddresses?.[0]?.emailAddress) {
             return new NextResponse("Unauthorized", { status: 401 });
@@ -89,6 +90,6 @@ export async function POST (
 
     } catch (error) {
         console.log("COURSE_ID_CHECKOUT", error);
-        return new NextResponse("Internal Error", { status: 500 });
+        //return new NextResponse("Internal Error", { status: 500 });
     }
 }
