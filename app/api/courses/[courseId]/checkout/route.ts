@@ -90,6 +90,6 @@ export async function POST (
 
     } catch (error) {
         console.log("COURSE_ID_CHECKOUT", error);
-        //return new NextResponse("Internal Error", { status: 500 });
+        return new NextResponse("Internal Error", { status: 500 });
     }
 }
