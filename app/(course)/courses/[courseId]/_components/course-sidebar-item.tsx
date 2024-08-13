@@ -38,8 +38,8 @@ export const CourseSidebarItem = ({
                 `flex items-center gap-x-2 text-slate-500 text-sm 
                 font-[500] pl-6 transition-all`,
                 isActive && `bg-white text-slate-900 font-semibold`,
-                isCompleted && `text-green-500`,
-                isCompleted && isActive && `text-green-200/20`,
+                isCompleted && `text-green-900`,
+                isCompleted && isActive && `text-green-900/20`,
 
             )}
         >
@@ -49,7 +49,7 @@ export const CourseSidebarItem = ({
                     className={cn(
                         `text-slate-500`,
                         isActive && `text-slate-900`,
-                        isCompleted && `text-green-500`,
+                        isCompleted && `text-green-900`,
                     )}
                 />
                 {label}
