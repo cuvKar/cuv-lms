@@ -42,14 +42,14 @@ export const VideoPlayer = ({
                 });
             }
 
-            if(!nextChapter){
+            if(!nextChapterId){
                 confetti.onOpen();
             }
 
             toast.success("Progress Updated");
             router.refresh();
 
-            if(nextChapter){
+            if(nextChapterId){
                 router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
             }
 
