@@ -15,7 +15,7 @@ interface VideoPlayerProps {
     playbackId: string;
     chapterId: string;
     courseId: string;
-    nextChapter?: string;
+    nextChapterId?: string;
     isLocked: boolean;
     completeOnEnd: boolean;
     title: string;
@@ -25,13 +25,40 @@ export const VideoPlayer = ({
     playbackId,
     chapterId,
     courseId,
-    nextChapter,
+    nextChapterId,
     isLocked,
     completeOnEnd,
     title,
 }: VideoPlayerProps) => {
     const [isReady, setIsReady] = useState(false);
     const router = useRouter();
+    const confetti = useConfettiStore();
+
+    const onEnd = async () => {
+        try{
+            if(completeOnEnd){
+                await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
+                    isCompleted: true,
+                });
+            }
+
+            if(!nextChapter){
+                confetti.onOpen();
+            }
+
+            toast.success("Progress Updated");
+            router.refresh();
+
+            if(nextChapter){
+                router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+            }
+
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred while trying to mark the chapter as complete");
+        }
+    };
+
     return(
         <div className="relative aspect-video">
             {!isReady && !isLocked && (
@@ -58,7 +85,7 @@ export const VideoPlayer = ({
                         !isReady && 'hidden',
                     )}
                     onCanPlay={() => setIsReady(true)}
-                    onEnded = {() => {}}
+                    onEnded = {onEnd}
                     autoPlay
                     playbackId={playbackId}
                 />
