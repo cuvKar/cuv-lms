@@ -45,7 +45,7 @@ export const getChapter = async ({
 
         let muxData = null;
         let attachments: Attachment[] = [];
-        let nextChapter: Chapter | null;
+        let nextChapter: Chapter | null = null;
 
         if(purchase){
             attachments = await db.attachment.findMany({

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.1",
@@ -31,6 +32,7 @@
     "@uploadthing/react": "^6.7.2",
     "autoprefixer": "10.4.19",
     "axios": "^1.7.2",
+    "cjs": "^0.0.11",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -55,6 +57,7 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.5.3",
     "uploadthing": "^6.13.2",
+    "uri-js": "^4.2.2",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
