@@ -18,7 +18,7 @@ EXPOSE 3000
 ENV NODE_ENV=production
 
 # Build the Next.js app
-RUN npm run build
+#RUN npm run build
 
 # Start the Next.js app
 CMD ["npm", "run", "start"]
